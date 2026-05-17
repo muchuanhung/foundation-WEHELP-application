@@ -6,7 +6,6 @@ import { ScheduleSection } from "./components/ScheduleSection.jsx";
 import { ChallengesSection } from "./components/ChallengesSection.jsx";
 import { VisionSection } from "./components/VisionSection.jsx";
 import { ValueSection } from "./components/ValueSection.jsx";
-import { EffortsSection } from "./components/EffortsSection.jsx";
 import { RemarksSection } from "./components/RemarksSection.jsx";
 import { Footer } from "./components/Footer.jsx";
 
@@ -38,7 +37,6 @@ export default function App({ showQ7 = false }) {
             <ChallengesSection />
             <VisionSection />
             <ValueSection />
-            <EffortsSection show={showQ7} />
             <RemarksSection />
           </div>
         </main>
