@@ -1,31 +1,51 @@
-import { SiteHeader } from "./components/SiteHeader.jsx";
-import { TableOfContents } from "./components/TableOfContents.jsx";
-import { QACard } from "./components/QACard.jsx";
-import { SiteFooter } from "./components/SiteFooter.jsx";
+import { Sidebar } from "./components/Sidebar.jsx";
+import { Header } from "./components/Header.jsx";
+import { AboutSection } from "./components/AboutSection.jsx";
+import { BackgroundSection } from "./components/BackgroundSection.jsx";
+import { ScheduleSection } from "./components/ScheduleSection.jsx";
+import { ChallengesSection } from "./components/ChallengesSection.jsx";
+import { VisionSection } from "./components/VisionSection.jsx";
+import { ValueSection } from "./components/ValueSection.jsx";
+import { EffortsSection } from "./components/EffortsSection.jsx";
+import { RemarksSection } from "./components/RemarksSection.jsx";
+import { Footer } from "./components/Footer.jsx";
 
-export default function App({ visibleQuestions }) {
+export default function App({ showQ7 = false }) {
   return (
-    <>
+    <div className="min-h-screen bg-slate-50">
+      {/* Skip to content link */}
       <a
         href="#main"
-        className="absolute -left-[9999px] z-[100] rounded bg-sky-700 px-4 py-2 text-white no-underline focus:top-4 focus:left-4"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white"
       >
         跳至主要內容
       </a>
 
-      <SiteHeader />
+      {/* Sticky Sidebar Navigation */}
+      <Sidebar showQ7={showQ7} />
 
-      <main id="main" className="mx-auto max-w-[720px] px-5 py-8 pb-12">
-        <TableOfContents items={visibleQuestions} />
+      {/* Main Content Area */}
+      <div className="lg:ml-56">
+        {/* Header */}
+        <Header />
 
-        <article className="flex flex-col gap-5">
-          {visibleQuestions.map((q) => (
-            <QACard key={q.id} question={q} optional={q.id === "q8"} />
-          ))}
-        </article>
-      </main>
+        {/* Main Content */}
+        <main id="main" className="mx-auto max-w-4xl px-6 py-12 lg:px-12">
+          <div className="space-y-12">
+            <AboutSection />
+            <BackgroundSection />
+            <ScheduleSection />
+            <ChallengesSection />
+            <VisionSection />
+            <ValueSection />
+            <EffortsSection show={showQ7} />
+            <RemarksSection />
+          </div>
+        </main>
 
-      <SiteFooter />
-    </>
+        {/* Footer */}
+        <Footer />
+      </div>
+    </div>
   );
 }
