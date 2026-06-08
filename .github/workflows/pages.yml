@@ -25,12 +25,46 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+      - name: Build week1
+        working-directory: week1
+        run: |
+          npm ci
+          npm run build
+      - name: Build application
+        working-directory: application
+        run: |
+          npm ci
+          npm run build
+      - name: Prepare site artifact
+        run: |
+          mkdir -p site/week1 site/application
+          cp -r week1/dist/* site/week1/
+          cp -r application/dist/* site/application/
+          cat > site/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-Hant">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Foundation Model — Phase 1</title>
+              <style>
+                body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 4rem auto; padding: 0 1.5rem; }
+                h1 { font-size: 1.5rem; }
+                ul { line-height: 2; }
+              </style>
+            </head>
+            <body>
+              <h1>Foundation Model — 第一階段作業</h1>
+              <ul>
+                <li><a href="./application/">WEHELP 申請問答</a></li>
+                <li><a href="./week1/">Week 1 — RWD 切版</a></li>
+              </ul>
+            </body>
+          </html>
+          EOF
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4
