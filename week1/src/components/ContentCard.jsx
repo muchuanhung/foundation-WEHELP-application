@@ -14,9 +14,9 @@ export function ContentCard({ label, className = "" }) {
           className="content-card__star"
           aria-hidden="true"
         />
-      </div>
-      <div className="content-card__footer">
-        <p>{label}</p>
+        <div className="content-card__footer">
+          <p>{label}</p>
+        </div>
       </div>
     </article>
   );

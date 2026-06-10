@@ -1,7 +1,7 @@
 import { Header } from "./components/Header.jsx";
 import { Banner } from "./components/Banner.jsx";
 import { PromotionSection } from "./components/PromotionSection.jsx";
-import { ContentGrid } from "./components/ContentGrid.jsx";
+import { ContentSection } from "./components/ContentSection.jsx";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <main className="main">
         <div className="main__inner">
           <PromotionSection />
-          <ContentGrid />
+          <ContentSection />
         </div>
       </main>
     </div>
