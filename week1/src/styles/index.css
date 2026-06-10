@@ -107,7 +107,7 @@ img {
   border: none;
 }
 
-.side-menu-overlay--visible {
+.side-menu-overlay.side-menu-overlay--visible {
   display: block;
 }
 
@@ -315,8 +315,9 @@ img {
   }
 
   .side-menu,
-  .side-menu-overlay {
-    display: none !important;
+  .side-menu-overlay,
+  .side-menu-overlay.side-menu-overlay--visible {
+    display: none;
   }
 
   .banner {
@@ -352,6 +353,20 @@ img {
 @media (min-width: 1200px) {
   body {
     font-size: 20px;
+  }
+
+  .header__nav {
+    display: flex;
+  }
+
+  .header__menu-btn {
+    display: none;
+  }
+
+  .side-menu,
+  .side-menu-overlay,
+  .side-menu-overlay.side-menu-overlay--visible {
+    display: none;
   }
 
   .header__inner {
