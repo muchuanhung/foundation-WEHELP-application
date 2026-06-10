@@ -3,18 +3,16 @@ const thumbImage =
 
 export function PromotionBar({ label, className = "" }) {
   return (
-    <article
-      className={`box-border flex h-promo min-h-promo w-full items-stretch overflow-hidden bg-promo ${className}`}
-    >
+    <article className={`promo-bar${className ? ` ${className}` : ""}`}>
       <img
         src={thumbImage}
         alt=""
-        className="box-border block h-promo w-thumb shrink-0 object-cover"
+        className="promo-bar__thumb"
         width={80}
         height={50}
       />
-      <div className="box-border flex min-w-0 flex-1 items-center px-3">
-        <p className="m-0 truncate text-base">{label}</p>
+      <div className="promo-bar__label">
+        <p>{label}</p>
       </div>
     </article>
   );

@@ -4,19 +4,19 @@ const promotions = ["Promotion 1", "Promotion 2", "Promotion 3"];
 
 export function PromotionSection() {
   return (
-    <section className="box-border w-full" aria-label="促銷區塊">
-      <div className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-4">
+    <section className="promo-section" aria-label="促銷區塊">
+      <div className="promo-grid">
         <PromotionBar
           label={promotions[0]}
-          className="tablet:col-span-1 desktop:col-span-4"
+          className="promo-bar--desktop-full"
         />
         <PromotionBar
           label={promotions[1]}
-          className="tablet:col-span-1 desktop:col-span-3"
+          className="promo-bar--desktop-two-thirds"
         />
         <PromotionBar
           label={promotions[2]}
-          className="tablet:col-span-2 desktop:col-span-1"
+          className="promo-bar--tablet-full promo-bar--desktop-one-third"
         />
       </div>
     </section>
