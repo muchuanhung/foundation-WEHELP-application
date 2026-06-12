@@ -52,10 +52,10 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
   height: 56px;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0 16px;
 }
 
 .header__title {
@@ -202,7 +202,7 @@ img {
 .promo-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 20px;
 }
 
 .promo-bar {
@@ -300,12 +300,15 @@ img {
   text-align: center;
 }
 
+/* Header padding: 768px+ */
+@media (min-width: 768px) {
+  .header__inner {
+    padding: 0 24px;
+  }
+}
+
 /* Tablet: 600px – 1199px */
 @media (min-width: 600px) and (max-width: 1199px) {
-  .header__inner {
-    width: 90%;
-  }
-
   .header__nav {
     display: flex;
   }
@@ -371,8 +374,9 @@ img {
 
   .header__inner {
     width: 100%;
-    max-width: 1200px;
     height: 64px;
+    margin: 0;
+    padding: 0 40px;
   }
 
   .banner {
@@ -391,34 +395,39 @@ img {
   }
 
   .promo-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
   }
 
   .promo-bar--desktop-full {
-    grid-column: span 3;
+    grid-column: span 6;
   }
 
   .promo-bar--desktop-two-thirds {
-    grid-column: span 2;
+    grid-column: span 4;
   }
 
   .promo-bar--desktop-one-third {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 
   .promo-bar--tablet-full {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 
   .content-section__inner {
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  /* 第一欄佔 2 欄，與 Promotion 3 / Title 4 對齊 */
+  .content-card:nth-child(5n + 1) {
+    grid-column: span 2;
   }
 
   .content-card__image-wrap {
     aspect-ratio: 4 / 3;
   }
 
-  /* 第一欄 2fr，維持與其他欄相同圖片高度 */
   .content-card:nth-child(5n + 1) .content-card__image-wrap {
     aspect-ratio: 8 / 3;
   }
