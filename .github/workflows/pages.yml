@@ -37,9 +37,10 @@ jobs:
           npm run build
       - name: Prepare site artifact
         run: |
-          mkdir -p site/week1 site/application
+          mkdir -p site/week1 site/week2 site/application
           cp -r week1/dist/* site/week1/
           cp -r application/dist/* site/application/
+          cp week2/assign2.html week2/assign2.js site/week2/
           cat > site/index.html <<'EOF'
           <!DOCTYPE html>
           <html lang="zh-Hant">
@@ -58,6 +59,7 @@ jobs:
               <ul>
                 <li><a href="./application/">WEHELP 申請問答</a></li>
                 <li><a href="./week1/">Week 1 — RWD 切版</a></li>
+                <li><a href="./week2/assign2.html">Week 2 — 程式題（Python & JavaScript）</a></li>
               </ul>
             </body>
           </html>
