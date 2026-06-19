@@ -28,7 +28,13 @@
     <h1>Week 2 — Python & JavaScript 解題</h1>
     <script src="./assign2.js"></script>
     <script>
-      document.getElementById("output").textContent = runAll();
+      const output = document.getElementById("output");
+      const result = runAll();
+      if (result !== null) {
+        output.textContent = result;
+      } else {
+        output.textContent = "執行完成，詳細輸出請看 Console。";
+      }
     </script>
   </body>
 </html>
