@@ -1,81 +1,77 @@
 // Week 2 — JavaScript 解答（四題）
 // 注意：不可使用第三方套件
 
-function problem1() {
-  // 題目 1
-  function func1(name){
-    // 定義角色位置
-    const characters = {
-      '悟空': [0, 0],
-      '丁滿': [-1, 4],
-      '辛巴': [-3, 3],
-      '貝吉塔': [-4, -1],
-      '特南克斯': [1, -2],
-      '弗利沙': [4, -1],
-    }
+// 題目 1
+function func1(name) {
+  // 定義角色位置
+  const characters = {
+    悟空: [0, 0],
+    丁滿: [-1, 4],
+    辛巴: [-3, 3],
+    貝吉塔: [-4, -1],
+    特南克斯: [1, -2],
+    弗利沙: [4, -1],
+  };
 
-    // 取得起點角色位置
-    let start = characters[name];
+  // 取得起點角色位置
+  let start = characters[name];
 
-    // 輔助函式：判斷哪一側，題目說跨側距離要加 2
-    const getSide = (pos) => 2 * pos[0] + pos[1] > 0;
+  // 輔助函式：判斷哪一側，題目說跨側距離要加 2
+  const getSide = (pos) => 2 * pos[0] + pos[1] > 0;
 
-    // 用來儲存計算結果
-    let distances = [];
+  // 用來儲存計算結果
+  let distances = [];
 
-    // for 迴圈計算角色之間的距離
-    for (let key in characters) {
-      if (key === name) continue;
+  // for 迴圈計算角色之間的距離
+  for (let key in characters) {
+    if (key === name) continue;
 
-      let target = characters[key];
-      // 計算路徑距離 [-3,3] -> [-4,3] = 1 
-      let routeDistance =
-        Math.abs(target[0] - start[0]) + Math.abs(target[1] - start[1]);
-      // 計算跨側距離
-      let crossSide = getSide(start) !== getSide(target) ? 2 : 0;
-      // 計算總距離
-      let distance = routeDistance + crossSide;
-      // 儲存計算結果
-      distances.push({ name: key, distance: distance });
-    }
-
-    // 找最近、最遠距離
-    let minDistance = distances[0].distance;
-    let maxDistance = distances[0].distance;
-    for (let i = 0; i < distances.length; i++) {
-      if (distances[i].distance < minDistance) {
-        minDistance = distances[i].distance;
-      }
-      if (distances[i].distance > maxDistance) {
-        maxDistance = distances[i].distance;
-      }
-    }
-
-    // 找出最近、最遠距離的角色
-    let closest = [];
-    let farthest = [];
-    for (let i = 0; i < distances.length; i++) {
-      if (distances[i].distance === minDistance) {
-        closest.push(distances[i].name);
-      }
-      if (distances[i].distance === maxDistance) {
-        farthest.push(distances[i].name);
-      }
-    }
-
-    console.log(`最遠${farthest.join("、")}；最近${closest.join("、")}`);
+    let target = characters[key];
+    // 計算路徑距離 [-3,3] -> [-4,3] = 1
+    let routeDistance =
+      Math.abs(target[0] - start[0]) + Math.abs(target[1] - start[1]);
+    // 計算跨側距離
+    let crossSide = getSide(start) !== getSide(target) ? 2 : 0;
+    // 計算總距離
+    let distance = routeDistance + crossSide;
+    // 儲存計算結果
+    distances.push({ name: key, distance: distance });
   }
-  func1("辛巴"); // print 最遠弗利沙；最近丁滿、⾙吉塔
-  func1("悟空"); // print 最遠丁滿、弗利沙；最近特南克斯
-  func1("弗利沙"); // print 最遠辛巴，最近特南克斯
-  func1("特南克斯"); // print 最遠丁滿，最近悟空
-  return null;
+
+  // 找最近、最遠距離
+  let minDistance = distances[0].distance;
+  let maxDistance = distances[0].distance;
+  for (let i = 0; i < distances.length; i++) {
+    if (distances[i].distance < minDistance) {
+      minDistance = distances[i].distance;
+    }
+    if (distances[i].distance > maxDistance) {
+      maxDistance = distances[i].distance;
+    }
+  }
+
+  // 找出最近、最遠距離的角色
+  let closest = [];
+  let farthest = [];
+  for (let i = 0; i < distances.length; i++) {
+    if (distances[i].distance === minDistance) {
+      closest.push(distances[i].name);
+    }
+    if (distances[i].distance === maxDistance) {
+      farthest.push(distances[i].name);
+    }
+  }
+
+  console.log(`最遠${farthest.join("、")}；最近${closest.join("、")}`);
 }
+func1("辛巴"); // print 最遠弗利沙；最近丁滿、貝吉塔
+func1("悟空"); // print 最遠丁滿、弗利沙；最近特南克斯
+func1("弗利沙"); // print 最遠辛巴，最近特南克斯
+func1("特南克斯"); // print 最遠丁滿，最近悟空
 
-function problem2() {
-  // 記錄每個 service 已經被預約的時間區間
-  const bookings = {};
-
+// 題目 2
+const bookings = {};
+function func2(ss, start, end, criteria) {
   // 判斷時區overlap
   function hasOverlap(start1, end1, start2, end2) {
     return start1 < end2 && start2 < end1;
@@ -112,7 +108,7 @@ function problem2() {
     return { field: parts[0], op: "=", value: parts[1] };
   }
 
-  // 檢查 service 
+  // 檢查 service
   function matchCriteria(service, field, op, value) {
     if (field === "name") {
       return service.name === value;
@@ -143,138 +139,121 @@ function problem2() {
     return false;
   }
 
-  function func2(ss, start, end, criteria) {
-    const parsed = parseCriteria(criteria);
-    const field = parsed.field;
-    const op = parsed.op;
-    const value = parsed.value;
+  const parsed = parseCriteria(criteria);
+  const field = parsed.field;
+  const op = parsed.op;
+  const value = parsed.value;
 
-    let best = null;
+  let best = null;
 
-    // 逐一檢查每個 service
-    for (let i = 0; i < ss.length; i++) {
-      const service = ss[i];
+  // 逐一檢查每個 service
+  for (let i = 0; i < ss.length; i++) {
+    const service = ss[i];
 
-      // 不符合條件就跳過
-      if (!matchCriteria(service, field, op, value)) {
-        continue;
-      }
-
-      // 時間被佔用就跳過
-      if (!isAvailable(service.name, start, end)) {
-        continue;
-      }
-
-      if (best === null || isBetterMatch(service, best, field, op)) {
-        best = service;
-      }
+    // 不符合條件就跳過
+    if (!matchCriteria(service, field, op, value)) {
+      continue;
     }
 
-    if (best === null) {
-      console.log("Sorry");
-      return;
+    // 時間被佔用就跳過
+    if (!isAvailable(service.name, start, end)) {
+      continue;
     }
 
-    // 預約成功，記錄時間
-    if (!bookings[best.name]) {
-      bookings[best.name] = [];
+    if (best === null || isBetterMatch(service, best, field, op)) {
+      best = service;
     }
-    bookings[best.name].push([start, end]);
-    console.log(best.name);
   }
 
-  const services = [
-    { name: "S1", r: 4.5, c: 1000 },
-    { name: "S2", r: 3, c: 1200 },
-    { name: "S3", r: 3.8, c: 800 },
-  ];
-  func2(services, 15, 17, "c>=800"); // S3
-  func2(services, 11, 13, "r<=4"); // S3
-  func2(services, 10, 12, "name=S3"); // Sorry
-  func2(services, 15, 18, "r>=4.5"); // S1
-  func2(services, 16, 18, "r>=4"); // Sorry
-  func2(services, 13, 17, "name=S1"); // Sorry
-  func2(services, 8, 9, "c<=1500"); // S2
-  return null;
-}
-
-function problem3() {
-  function func3(index) {
-    const first = 25;
-    const diffs = [-2, -3, 1, 2];
-
-    let result = first;
-
-    // for 迴圈計算
-    for (let i = 0; i < index; i++) {
-      result += diffs[i % 4];
-    }
-
-    console.log(result);
+  if (best === null) {
+    console.log("Sorry");
+    return;
   }
-  func3(1); // print 23
-  func3(5); // print 21
-  func3(10); // print 16
-  func3(30); // print 6
-  return null;
+
+  // 預約成功，記錄時間
+  if (!bookings[best.name]) {
+    bookings[best.name] = [];
+  }
+  bookings[best.name].push([start, end]);
+  console.log(best.name);
 }
+const services = [
+  { name: "S1", r: 4.5, c: 1000 },
+  { name: "S2", r: 3, c: 1200 },
+  { name: "S3", r: 3.8, c: 800 },
+];
+func2(services, 15, 17, "c>=800"); // S3
+func2(services, 11, 13, "r<=4"); // S3
+func2(services, 10, 12, "name=S3"); // Sorry
+func2(services, 15, 18, "r>=4.5"); // S1
+func2(services, 16, 18, "r>=4"); // Sorry
+func2(services, 13, 17, "name=S1"); // Sorry
+func2(services, 8, 9, "c<=1500"); // S2
 
-function problem4() {
-  function func4(sp, stat, n) {
-    let bestIndex = -1;
-    let bestSpace = Infinity;
+// 題目 3
+function func3(index) {
+  const first = 25;
+  const diffs = [-2, -3, 1, 2];
 
-    // 第一輪：找空位最多，且空位最少
-    for (let i = 0; i < sp.length; i++) {
-      if (stat[i] !== "0") {
-        continue;
-      }
-      if (sp[i] >= n && sp[i] < bestSpace) {
-        bestSpace = sp[i];
-        bestIndex = i;
-      }
+  let result = first;
+
+  // for 迴圈計算
+  for (let i = 0; i < index; i++) {
+    result += diffs[i % 4];
+  }
+
+  console.log(result);
+}
+func3(1); // print 23
+func3(5); // print 21
+func3(10); // print 16
+func3(30); // print 6
+
+// 題目 4
+function func4(sp, stat, n) {
+  let bestIndex = -1;
+  let bestSpace = Infinity;
+
+  // 第一輪：找空位最多，且空位最少
+  for (let i = 0; i < sp.length; i++) {
+    if (stat[i] !== "0") {
+      continue;
     }
-
-    // 有找到夠裝的車廂，直接印出
-    if (bestIndex !== -1) {
-      console.log(bestIndex);
-      return;
+    if (sp[i] >= n && sp[i] < bestSpace) {
+      bestSpace = sp[i];
+      bestIndex = i;
     }
+  }
 
-    // 第二輪：沒有任何車廂裝得下，改找空位最多的可服務車廂
-    bestIndex = -1;
-    bestSpace = -1;
-    for (let i = 0; i < sp.length; i++) {
-      if (stat[i] !== "0") {
-        continue;
-      }
-      if (sp[i] > bestSpace) {
-        bestSpace = sp[i];
-        bestIndex = i;
-      }
-    }
-
+  // 有找到夠裝的車廂，直接印出
+  if (bestIndex !== -1) {
     console.log(bestIndex);
+    return;
   }
-  func4([3, 1, 5, 4, 3, 2], "101000", 2); // print 5
-  func4([1, 0, 5, 1, 3], "10100", 4); // print 4
-  func4([4, 6, 5, 8], "1000", 4); // print 2
-  return null;
+
+  // 第二輪：沒有任何車廂裝得下，改找空位最多的可服務車廂
+  bestIndex = -1;
+  bestSpace = -1;
+  for (let i = 0; i < sp.length; i++) {
+    if (stat[i] !== "0") {
+      continue;
+    }
+    if (sp[i] > bestSpace) {
+      bestSpace = sp[i];
+      bestIndex = i;
+    }
+  }
+
+  console.log(bestIndex);
 }
+func4([3, 1, 5, 4, 3, 2], "101000", 2); // print 5
+func4([1, 0, 5, 1, 3], "10100", 4); // print 4
+func4([4, 6, 5, 8], "1000", 4); // print 2
 
 function runAll() {
-  const results = [
-    { title: "Problem 1", value: problem1() },
-    { title: "Problem 2", value: problem2() },
-    { title: "Problem 3", value: problem3() },
-    { title: "Problem 4", value: problem4() },
-  ];
-
-  return results
-    .map(({ title, value }) => `${title}: ${JSON.stringify(value)}`)
-    .join("\n");
+  return null;
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { problem1, problem2, problem3, problem4, runAll };
+  module.exports = { func1, func2, func3, func4, runAll };
 }
