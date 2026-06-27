@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Week 3 — 資料抓取與視覺化</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="header__inner">
+          <h1 class="header__title">My Website</h1>
+          <nav class="header__nav" aria-label="主選單">
+            <a href="#" class="header__nav-link">Item 1</a>
+            <a href="#" class="header__nav-link">Item 2</a>
+            <a href="#" class="header__nav-link">Item 3</a>
+            <a href="#" class="header__nav-link">Item 4</a>
+          </nav>
+          <button
+            type="button"
+            class="header__menu-btn"
+            id="menu-btn"
+            aria-label="開啟選單"
+            aria-expanded="false"
+          >
+            <img src="./public/icons/menu.svg" alt="" aria-hidden="true" />
+          </button>
+        </div>
+      </header>
+
+      <button
+        type="button"
+        class="side-menu-overlay"
+        id="menu-overlay"
+        aria-label="關閉選單背景"
+        hidden
+      ></button>
+
+      <aside class="side-menu" id="side-menu" aria-hidden="true">
+        <div class="side-menu__close">
+          <button type="button" id="menu-close-btn" aria-label="關閉選單">
+            <img src="./public/icons/close.svg" alt="" aria-hidden="true" />
+          </button>
+        </div>
+        <nav class="side-menu__nav" aria-label="手機選單">
+          <a href="#" class="side-menu__link">Item 1</a>
+          <a href="#" class="side-menu__link">Item 2</a>
+          <a href="#" class="side-menu__link">Item 3</a>
+          <a href="#" class="side-menu__link">Item 4</a>
+        </nav>
+      </aside>
+
+      <section class="banner">
+        <h2 class="banner__title">Welcome to MyHome</h2>
+      </section>
+
+      <main class="main">
+        <div class="main__inner">
+          <section class="promo-section" aria-label="促銷區塊">
+            <div class="promo-grid" id="promo-grid"></div>
+          </section>
+
+          <section class="content-section" aria-label="內容區塊">
+            <div class="content-section__inner" id="content-grid"></div>
+          </section>
+
+          <div class="load-more-wrap">
+            <button type="button" class="load-more" id="load-more-btn" hidden>
+              Load More
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./task3.js"></script>
+  </body>
+</html>
