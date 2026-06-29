@@ -1,0 +1,5 @@
+# FastAPI 相關套件
+fastapi
+uvicorn[standard] # 啟動 FastAPI 伺服器
+jinja2 # 渲染 HTML 模板
+python-multipart # 處理 multipart/form-data 表單資料
