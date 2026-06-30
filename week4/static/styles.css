@@ -5,4 +5,93 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
+  background: #fff;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid #bdbdbd;
+}
+
+.login-card__header {
+  background: #343a40;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.login-card__header-text {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.login-form {
+  padding: 2rem 1.5rem 2.5rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form__title {
+  margin: 0 0 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.login-form__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.login-form__label {
+  width: 3rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.login-form__input {
+  width: 220px;
+  height: 2rem;
+  padding: 0 0.5rem;
+  border: 1px solid #9e9e9e;
+  font-size: 1rem;
+}
+
+.login-form__checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  cursor: pointer;
+}
+
+.login-form__button {
+  padding: 0.25rem 1.25rem;
+  border: 1px solid #757575;
+  background: #e0e0e0;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login-form__button:hover {
+  background: #d5d5d5;
 }

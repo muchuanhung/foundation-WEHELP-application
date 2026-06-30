@@ -7,5 +7,62 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
+    <main class="page">
+      <div class="login-card">
+        <header class="login-card__header">
+          <p class="login-card__header-text">歡迎光臨，請輸入信箱密碼</p>
+        </header>
+
+        <form
+          id="login-form"
+          class="login-form"
+          method="post"
+          action="/login"
+        >
+          <h1 class="login-form__title">登入系統</h1>
+
+          <div class="login-form__row">
+            <label class="login-form__label" for="email">信箱</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              class="login-form__input"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="login-form__row">
+            <label class="login-form__label" for="password">密碼</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              class="login-form__input"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <label class="login-form__checkbox">
+            <span>同意條款</span>
+            <input type="checkbox" id="agree" name="agree" />
+          </label>
+
+          <button type="submit" class="login-form__button">登入</button>
+        </form>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("login-form");
+      const agree = document.getElementById("agree");
+
+      form.addEventListener("submit", function (event) {
+        if (!agree.checked) {
+          event.preventDefault();
+          alert("請勾選同意條款");
+        }
+      });
+    </script>
   </body>
 </html>
