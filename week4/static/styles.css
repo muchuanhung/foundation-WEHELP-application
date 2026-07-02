@@ -95,3 +95,13 @@ body {
 .login-form__button:hover {
   background: #d5d5d5;
 }
+
+.result-page {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.result-page__message {
+  margin: 0;
+  font-size: 1.25rem;
+}
