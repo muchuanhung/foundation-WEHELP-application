@@ -1,3 +1,4 @@
+from hotel_data import get_hotels_by_id
 from urllib.parse import quote
 
 # 匯入 FastAPI 相關模組
@@ -83,6 +84,22 @@ async def ohoh(request: Request, msg: str = ""):
         request=request,
         name="ohoh.html",
         context={"msg": msg},
+    )
+
+
+@app.get("/hotel/{hotel_id}", response_class=HTMLResponse)
+async def hotel(request: Request, hotel_id: int):
+    # Task 4：顯示旅館資訊
+    hotels = get_hotels_by_id()
+    hotel_info = hotels.get(hotel_id)
+
+    return templates.TemplateResponse(
+        request=request,
+        name="hotel.html",
+        context={
+            "found": hotel_info is not None,
+            "hotel": hotel_info,
+        },
     )
 
 

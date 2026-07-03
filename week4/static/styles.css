@@ -111,3 +111,18 @@ body {
   margin-top: 1.5rem;
   color: #0d6efd;
 }
+
+.hotel-search {
+  padding: 0 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid #ddd;
+}
+
+.hotel-search__title {
+  margin: 2rem 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}

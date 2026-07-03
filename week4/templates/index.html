@@ -50,6 +50,23 @@
 
           <button type="submit" class="login-form__button">登入</button>
         </form>
+
+        <section class="hotel-search">
+          <h2 class="hotel-search__title">取得旅館資訊</h2>
+
+          <div class="login-form__row">
+            <label class="login-form__label" for="hotel-id">編號</label>
+            <input
+              id="hotel-id"
+              type="text"
+              class="login-form__input"
+            />
+          </div>
+
+          <button type="button" id="hotel-btn" class="login-form__button">
+            取得
+          </button>
+        </section>
       </div>
     </main>
 
@@ -62,6 +79,21 @@
           event.preventDefault();
           alert("請勾選同意條款");
         }
+      });
+
+      const hotelBtn = document.getElementById("hotel-btn");
+      const hotelIdInput = document.getElementById("hotel-id");
+
+      hotelBtn.addEventListener("click", function () {
+        const value = hotelIdInput.value.trim();
+        const num = Number(value);
+
+        if (!Number.isInteger(num) || num <= 0) {
+          alert("請輸入正整數");
+          return;
+        }
+
+        window.location.href = `/hotel/${num}`;
       });
     </script>
   </body>
