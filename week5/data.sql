@@ -1,0 +1,2 @@
+-- 完成 Task 2~5 後，用以下指令產生此檔：
+-- mysqldump -u root -p website > data.sql

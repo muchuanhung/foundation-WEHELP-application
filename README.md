@@ -8,7 +8,8 @@
 - Week 1：https://muchuanhung.github.io/foundation-WEHELP-application/week1/
 - Week 2（JS）：https://muchuanhung.github.io/foundation-WEHELP-application/week2/assign2.html
 - Week 3：https://muchuanhung.github.io/foundation-WEHELP-application/week3/
-- Week 4: 為 FastAPI 後端專案，需本地執行（見下方說明）。
+- Week 4：為 FastAPI 後端專案，需本地執行（見下方說明）。
+- Week 5：為 MySQL 資料庫作業，需本地執行（見下方說明）。
 - 申請問答：https://muchuanhung.github.io/foundation-WEHELP-application/application/
 
 ## 專案結構
@@ -32,6 +33,10 @@ week4/           # 第四週 FastAPI 登入與旅館查詢
   requirements.txt
   templates/     # Jinja2 模板
   static/        # CSS
+week5/           # 第五週 MySQL 資料庫
+  data.sql       # mysqldump 匯出
+  sql/           # 各題 SQL 腳本
+  screenshots/   # 執行結果截圖
 application/     # WEHELP 申請問答
 ```
 
@@ -75,4 +80,25 @@ python main.py
 - Task 2：驗證登入（`POST /login`）、成功頁（`/member`）、錯誤頁（`/ohoh?msg=`）
 - Task 3：Session 登入狀態（`/logout`）
 - Task 4：旅館查詢（`/hotel/{id}`，測試編號例：`576`）
+
+## Week 5 本地執行
+
+```bash
+cd week5
+
+# 依序執行 SQL（將 root 改成你的帳號）
+mysql -u root -p < sql/task2_schema.sql
+mysql -u root -p < sql/task3_crud.sql
+mysql -u root -p < sql/task4_aggregation.sql
+mysql -u root -p < sql/task5_join.sql
+
+# 完成後匯出
+mysqldump -u root -p website > data.sql
+```
+
+- Task 1：安裝 MySQL 8.x
+- Task 2：建立 `website` DB、`member` 表
+- Task 3：CRUD
+- Task 4：Aggregation
+- Task 5：JOIN + `message` 表
 
