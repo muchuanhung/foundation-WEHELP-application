@@ -1,5 +1,4 @@
 -- Task 5：SQL JOIN
--- 先完成 task2~task4
 
 USE website;
 
@@ -14,7 +13,6 @@ CREATE TABLE IF NOT EXISTS message (
   FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
--- 範例資料（可依需求調整）
 INSERT INTO message (member_id, content, like_count)
 SELECT id, 'Hello from test user', 3
 FROM member
@@ -26,6 +24,12 @@ SELECT id, 'Another message', 7
 FROM member
 WHERE email = 'alice@example.com'
 LIMIT 1;
+
+INSERT INTO message (member_id, content, like_count) VALUES
+(1, '你好世界', 3),
+(2, 'Alice 的隨意留言', 7),
+(3, 'James 推薦這首歌', 15),
+(4, 'Esther：今天吃什麼', 2);
 
 -- 1. 取得所有留言，並包含發送者 name
 SELECT
