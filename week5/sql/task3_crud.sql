@@ -16,20 +16,19 @@ INSERT INTO member (name, email, password, follower_count) VALUES
 -- 2. 取得 member 表所有資料
 SELECT * FROM member;
 
--- 3. 依 time 降冪排序，取得所有資料
+-- 3. 依 time 降冪排序新到舊，取得所有資料
 SELECT * FROM member ORDER BY time DESC;
 
--- 4. 依 time 降冪排序，取第 2~4 筆（共 3 筆）
--- 注意：不是 id = 2, 3, 4
+-- 4. 依 time 降冪排序，取第 2~4 筆（共 3 筆） 分頁查詢
 SELECT * FROM member ORDER BY time DESC LIMIT 3 OFFSET 1;
 
--- 5. 取得 email = test@test.com 的資料
+-- 5. 取得 email = test@test.com 的資料 精確比對
 SELECT * FROM member WHERE email = 'test@test.com';
 
--- 6. 取得 name 包含 es 的資料
+-- 6. 取得 name 包含 es 的資料 模糊比對
 SELECT * FROM member WHERE name LIKE '%es%';
 
--- 7. email = test@test.com 且 password = test
+-- 7. email = test@test.com 且 password = test 多條件查詢
 SELECT * FROM member
 WHERE email = 'test@test.com' AND password = 'test';
 
