@@ -1,8 +1,9 @@
 from hotel_data import get_hotels_by_id
+from typing import Annotated, Optional
 from urllib.parse import quote
 
 # 匯入 FastAPI 相關模組
-from fastapi import FastAPI, Form, Request
+from fastapi import FastAPI, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -10,6 +11,35 @@ from starlette.middleware.sessions import SessionMiddleware
 
 # 建立 FastAPI 實例
 app = FastAPI()
+
+# app.get("/square/{number}", response_class=HTMLResponse)
+# async def square(number: int):
+#     return ('result': number * number)
+
+# query string
+@app.get("/hello")
+async def hello(name: str):
+    # f-string
+    message = f"Hello, {name}!"
+    return message
+
+# 處理路徑 /mutiple?n1=數字&n2=數字
+@app.get("/multiple")
+async def multiple(n1: int, n2: int):
+    n1 = int(n1)
+    n2 = int(n2)
+    return {'result': n1 * n2}
+
+# 輸入資料驗證
+@app.get("/validate")
+async def validate(
+    name: Annotated[Optional[str], Query(min_length=1)] = None,
+    age: Annotated[Optional[int], Query(ge=0, le=100)] = None,
+):
+    if name is None or age is None:
+        raise HTTPException(status_code=400, detail="請提供 name 和 age")
+
+    return f"姓名: {name}, 年齡: {age}"
 
 # Session 管理登入狀態
 app.add_middleware(SessionMiddleware, secret_key="week4-secret-key")
