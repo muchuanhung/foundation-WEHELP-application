@@ -34,6 +34,7 @@ week4/           # 第四週 FastAPI 登入與旅館查詢
   templates/     # Jinja2 模板
   static/        # CSS
 week5/           # 第五週 MySQL 資料庫
+  README.md      # SQL 指令 + 截圖整合
   data.sql       # mysqldump 匯出
   sql/           # 各題 SQL 腳本
   screenshots/   # 執行結果截圖
@@ -101,4 +102,5 @@ mysqldump -u root -p website > data.sql
 - Task 3：CRUD
 - Task 4：Aggregation
 - Task 5：JOIN + `message` 表
+- 詳細 SQL 與截圖見 [`week5/README.md`](./week5/README.md)
 
