@@ -10,6 +10,7 @@
 - Week 3：https://muchuanhung.github.io/foundation-WEHELP-application/week3/
 - Week 4：為 FastAPI 後端專案，需本地執行（見下方說明）。
 - Week 5：為 MySQL 資料庫作業，需本地執行（見下方說明）。
+- Week 6：為 FastAPI + MySQL 會員／留言系統，需本地執行（見下方說明）。
 - 申請問答：https://muchuanhung.github.io/foundation-WEHELP-application/application/
 
 ## 專案結構
@@ -37,6 +38,9 @@ week5/           # 第五週 MySQL 資料庫
   README.md      # SQL 指令 + 截圖整合
   data.sql       # mysqldump 匯出
   sql/           # 各題 SQL 腳本
+  screenshots/   # 執行結果截圖
+week6/           # 第六週 FastAPI + MySQL 會員系統
+  README.md      # 題目說明 + 截圖整合
   screenshots/   # 執行結果截圖
 application/     # WEHELP 申請問答
 ```
@@ -103,4 +107,23 @@ mysqldump -u root -p website > data.sql
 - Task 4：Aggregation
 - Task 5：JOIN + `message` 表
 - 詳細 SQL 與截圖見 [`week5/README.md`](./week5/README.md)
+
+## Week 6 本地執行
+
+```bash
+cd week6
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # 填入 MySQL 帳密
+python main.py
+# 瀏覽器開啟 http://127.0.0.1:8000/
+```
+
+- Task 1：首頁／會員頁／錯誤頁
+- Task 2：註冊 `POST /signup`
+- Task 3：登入 `POST /login` + session
+- Task 4：登出 `GET /logout` + 擋未登入
+- Task 5：留言 `GET/POST /api/message`（前後端分離）
+- Task 6：刪除 `DELETE /api/message/{id}`
 

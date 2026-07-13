@@ -1,5 +1,4 @@
 -- Task 4：SQL Aggregation Functions
--- 先完成 task2、task3
 
 USE website;
 
