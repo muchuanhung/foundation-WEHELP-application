@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>註冊登入系統</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="card">
+        <header class="card__header">
+          <p class="card__header-text">歡迎光臨，請註冊登入系統</p>
+        </header>
+
+        <form
+          id="signup-form"
+          class="form-section"
+          method="post"
+          action="/signup"
+        >
+          <h1 class="form-section__title">註冊帳號</h1>
+
+          <div class="form-row">
+            <label class="form-label" for="signup-name">姓名</label>
+            <input
+              id="signup-name"
+              class="form-input"
+              type="text"
+              name="name"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="signup-email">信箱</label>
+            <input
+              id="signup-email"
+              class="form-input"
+              type="text"
+              name="email"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="signup-password">密碼</label>
+            <input
+              id="signup-password"
+              class="form-input"
+              type="password"
+              name="password"
+              autocomplete="new-password"
+            />
+          </div>
+
+          <button type="submit" class="form-button">註冊</button>
+        </form>
+
+        <form
+          id="login-form"
+          class="form-section"
+          method="post"
+          action="/login"
+        >
+          <h2 class="form-section__title">登入系統</h2>
+
+          <div class="form-row">
+            <label class="form-label" for="login-email">信箱</label>
+            <input
+              id="login-email"
+              class="form-input"
+              type="text"
+              name="email"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="login-password">密碼</label>
+            <input
+              id="login-password"
+              class="form-input"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" class="form-button">登入</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
