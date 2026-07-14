@@ -91,5 +91,18 @@
         </form>
       </div>
     </main>
+
+    <script>
+      document.getElementById("signup-form").addEventListener("submit", function (event) {
+        const name = document.getElementById("signup-name").value.trim();
+        const email = document.getElementById("signup-email").value.trim();
+        const password = document.getElementById("signup-password").value.trim();
+
+        if (!name || !email || !password) {
+          event.preventDefault();
+          alert("請填寫完整註冊資料");
+        }
+      });
+    </script>
   </body>
 </html>
