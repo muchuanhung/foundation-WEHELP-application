@@ -44,11 +44,13 @@ async def home(request: Request):
 @app.get("/member", response_class=HTMLResponse)
 async def member(request: Request):
     member_data = request.session.get("member")
-    name = member_data["name"] if member_data else "會員"
+    if not member_data:
+        return RedirectResponse(url="/", status_code=303)
+
     return templates.TemplateResponse(
         request=request,
         name="member.html",
-        context={"name": name},
+        context={"name": member_data["name"]},
     )
 
 
@@ -105,6 +107,12 @@ async def login(
         "email": member_data["email"],
     }
     return RedirectResponse(url="/member", status_code=303)
+
+
+@app.get("/logout")
+async def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse(url="/", status_code=303)
 
 
 if __name__ == "__main__":
