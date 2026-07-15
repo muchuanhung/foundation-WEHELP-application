@@ -103,6 +103,16 @@
           alert("請填寫完整註冊資料");
         }
       });
+
+      document.getElementById("login-form").addEventListener("submit", function (event) {
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value.trim();
+
+        if (!email || !password) {
+          event.preventDefault();
+          alert("請填寫信箱和密碼");
+        }
+      });
     </script>
   </body>
 </html>

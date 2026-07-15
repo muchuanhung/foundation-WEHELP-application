@@ -8,7 +8,8 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
-from db import create_member, email_exists
+# 引入 db.py 中的函數
+from db import authenticate_member, create_member, email_exists
 
 load_dotenv()
 
@@ -42,8 +43,8 @@ async def home(request: Request):
 
 @app.get("/member", response_class=HTMLResponse)
 async def member(request: Request):
-    # Task 1：先用 placeholder；Task 3 改從 session 讀 name
-    name = request.session.get("member", {}).get("name", "會員")
+    member_data = request.session.get("member")
+    name = member_data["name"] if member_data else "會員"
     return templates.TemplateResponse(
         request=request,
         name="member.html",
@@ -78,6 +79,32 @@ async def signup(
 
     create_member(name, email, password)
     return RedirectResponse(url="/", status_code=303)
+
+
+@app.post("/login")
+async def login(
+    request: Request,
+    email: str = Form(""),
+    password: str = Form(""),
+):
+# 清除 email 和 password 的空白
+    email = email.strip()
+    password = password.strip()
+
+    if not email or not password:
+        return redirect_ohoh("請輸入信箱和密碼")
+
+    member_data = authenticate_member(email, password)
+    if member_data is None:
+        return redirect_ohoh("電子郵件或密碼錯誤")
+
+    # 寫入 user state：id / email / name
+    request.session["member"] = {
+        "id": member_data["id"],
+        "name": member_data["name"],
+        "email": member_data["email"],
+    }
+    return RedirectResponse(url="/member", status_code=303)
 
 
 if __name__ == "__main__":

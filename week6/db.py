@@ -27,7 +27,7 @@ def email_exists(email: str) -> bool:
         cursor.close()
         conn.close()
 
-
+# 註冊會員
 def create_member(name: str, email: str, password: str) -> None:
     conn = get_connection()
     try:
@@ -38,6 +38,22 @@ def create_member(name: str, email: str, password: str) -> None:
             (name, email, password),
         )
         conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+
+# 驗證會員
+def authenticate_member(email: str, password: str) -> dict | None:
+    """回傳 {id, name, email}；帳密不符則 None。"""
+    conn = get_connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id, name, email FROM member WHERE email = %s AND password = %s LIMIT 1",
+            (email, password),
+        )
+        row = cursor.fetchone()
+        return row
     finally:
         cursor.close()
         conn.close()
