@@ -13,6 +13,7 @@ from db import (
     authenticate_member,
     create_member,
     create_message,
+    delete_message,
     email_exists,
     list_messages,
 )
@@ -152,6 +153,19 @@ async def api_create_message(request: Request, body: MessageCreate):
         return JSONResponse({"error": True})
     # 新增留言
     create_message(member_data["id"], content)
+    return {"ok": True}
+
+
+@app.delete("/api/message/{message_id}")
+async def api_delete_message(request: Request, message_id: int):
+    member_data = get_session_member(request)
+    if not member_data:
+        return JSONResponse({"error": True})
+
+    deleted = delete_message(message_id, member_data["id"])
+    if not deleted:
+        return JSONResponse({"error": True})
+
     return {"ok": True}
 
 

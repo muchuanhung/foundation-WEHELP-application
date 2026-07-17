@@ -121,10 +121,20 @@ body {
 }
 
 .message-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
   text-align: left;
   font-size: 1rem;
+}
+
+.message-list__delete {
+  padding: 0 0.3rem;
+  border: 1px solid #999;
+  background: #eee;
+  cursor: pointer;
 }
 
 .message-list__item:last-child {

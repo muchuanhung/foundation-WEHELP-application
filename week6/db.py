@@ -107,3 +107,21 @@ def create_message(member_id: int, content: str) -> None:
     finally:
         cursor.close()
         conn.close()
+
+
+# 只刪除目前登入會員自己的留言
+def delete_message(message_id: int, member_id: int) -> bool:
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            "DELETE FROM message WHERE id = %s AND member_id = %s",
+            (message_id, member_id),
+        )
+        # 判斷是否刪除成功
+        deleted = cursor.rowcount == 1
+        conn.commit()
+        return deleted
+    finally:
+        cursor.close()
+        conn.close()
