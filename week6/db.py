@@ -57,3 +57,53 @@ def authenticate_member(email: str, password: str) -> dict | None:
     finally:
         cursor.close()
         conn.close()
+
+# 取得留言列表
+def list_messages(current_member_id: int) -> list[dict]:
+    """回傳留言列表；self 表示是否為目前登入者。"""
+    conn = get_connection()
+    try:
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            """
+            SELECT
+              message.id,
+              member.name,
+              message.content,
+              message.member_id
+            FROM message
+            JOIN member ON message.member_id = member.id
+            ORDER BY message.id ASC
+            """
+        )
+        rows = cursor.fetchall()
+        # 將留言列表轉換為API JSON格式
+        return [
+            {
+                "id": row["id"],
+                "name": row["name"],
+                "content": row["content"],
+                # 判斷是否為目前登入者
+                "self": row["member_id"] == current_member_id,
+            }
+            for row in rows
+        ]
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# 新增留言
+def create_message(member_id: int, content: str) -> None:
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO message (member_id, content) VALUES (%s, %s)",
+            (member_id, content),
+        )
+        # 提交更改 真實寫入
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()

@@ -17,7 +17,28 @@
           <p class="result-page__message">{{ name }}，歡迎登入系統</p>
           <a class="result-page__link" href="/logout">登出系統</a>
         </section>
+
+        <section class="form-section message-form">
+          <h2 class="form-section__title">快來留言吧</h2>
+          <form id="message-form">
+            <div class="form-row">
+              <label class="form-label" for="message-content">內容</label>
+              <input
+                id="message-content"
+                class="form-input"
+                type="text"
+                name="content"
+                autocomplete="off"
+              />
+            </div>
+            <button type="submit" class="form-button">送出</button>
+          </form>
+        </section>
+
+        <ul id="message-list" class="message-list"></ul>
       </div>
     </main>
+
+    <script src="/static/member.js"></script>
   </body>
 </html>

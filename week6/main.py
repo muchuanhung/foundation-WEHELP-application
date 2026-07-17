@@ -3,13 +3,19 @@ from urllib.parse import quote
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Form, Query, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 
-# 引入 db.py 中的函數
-from db import authenticate_member, create_member, email_exists
+from db import (
+    authenticate_member,
+    create_member,
+    create_message,
+    email_exists,
+    list_messages,
+)
 
 load_dotenv()
 
@@ -27,9 +33,16 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-# 重定向到錯誤頁
+class MessageCreate(BaseModel):
+    content: str
+
+# 重定向到 ohoh 頁面
 def redirect_ohoh(msg: str) -> RedirectResponse:
     return RedirectResponse(url=f"/ohoh?msg={quote(msg)}", status_code=303)
+
+# 取得 session 中的 member 資料
+def get_session_member(request: Request) -> dict | None:
+    return request.session.get("member")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -43,7 +56,7 @@ async def home(request: Request):
 
 @app.get("/member", response_class=HTMLResponse)
 async def member(request: Request):
-    member_data = request.session.get("member")
+    member_data = get_session_member(request)
     if not member_data:
         return RedirectResponse(url="/", status_code=303)
 
@@ -113,6 +126,33 @@ async def login(
 async def logout(request: Request):
     request.session.clear()
     return RedirectResponse(url="/", status_code=303)
+
+
+@app.get("/api/message")
+async def api_get_messages(request: Request):
+    member_data = get_session_member(request)
+    if not member_data:
+        return JSONResponse({"error": True})
+
+    # 取得留言列表
+    data = list_messages(member_data["id"])
+    # 回傳留言列表
+    return {"ok": True, "data": data}
+
+
+@app.post("/api/message")
+async def api_create_message(request: Request, body: MessageCreate):
+    member_data = get_session_member(request)
+    if not member_data:
+        return JSONResponse({"error": True})
+    # 清除 content 的空白
+    content = body.content.strip()
+    # 如果 content 為空，回傳錯誤
+    if not content:
+        return JSONResponse({"error": True})
+    # 新增留言
+    create_message(member_data["id"], content)
+    return {"ok": True}
 
 
 if __name__ == "__main__":
