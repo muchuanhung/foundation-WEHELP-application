@@ -40,8 +40,9 @@ week5/           # 第五週 MySQL 資料庫
   sql/           # 各題 SQL 腳本
   screenshots/   # 執行結果截圖
 week6/           # 第六週 FastAPI + MySQL 會員系統
-  README.md      # 題目說明 + 截圖整合
-  screenshots/   # 執行結果截圖
+  README.md      # 執行方式 + 各 Task 說明
+  main.py / db.py
+  templates/ static/
 application/     # WEHELP 申請問答
 ```
 
@@ -115,7 +116,7 @@ cd week6
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # 填入 MySQL 帳密
+# 建立 .env（見 week6/README.md），填入 MySQL 帳密
 python main.py
 # 瀏覽器開啟 http://127.0.0.1:8000/
 ```
