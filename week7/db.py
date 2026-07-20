@@ -125,3 +125,35 @@ def delete_message(message_id: int, member_id: int) -> bool:
     finally:
         cursor.close()
         conn.close()
+
+
+# 將 access token 綁定
+def update_member_token(member_id: int, token: str) -> None:
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            # 更新 token 防止 sql injection
+            "UPDATE member SET token = %s WHERE id = %s",
+            (token, member_id),
+        )
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+
+
+# 用 token 讀綁定
+def get_member_id_by_token(token: str) -> int | None:
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT id FROM member WHERE token = %s LIMIT 1",
+            (token,),
+        )
+        row = cursor.fetchone()
+        return int(row[0]) if row else None
+    finally:
+        cursor.close()
+        conn.close()

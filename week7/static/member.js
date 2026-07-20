@@ -51,6 +51,20 @@ async function loadMessages() {
 document.addEventListener("DOMContentLoaded", function () {
   loadMessages();
 
+  document.getElementById("generate-token").addEventListener("click", async function () {
+    const response = await fetch("/api/token", { method: "PUT" });
+    const result = await response.json();
+    const display = document.getElementById("token-display");
+
+    if (!result.ok) {
+      display.textContent = "";
+      alert("產生 Token 失敗");
+      return;
+    }
+
+    display.textContent = result.token;
+  });
+
   document.getElementById("message-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 

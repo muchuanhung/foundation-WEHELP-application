@@ -1,4 +1,6 @@
+import hashlib
 import os
+import secrets
 from urllib.parse import quote
 
 from dotenv import load_dotenv
@@ -16,6 +18,7 @@ from db import (
     delete_message,
     email_exists,
     list_messages,
+    update_member_token,
 )
 
 load_dotenv()
@@ -25,7 +28,7 @@ app = FastAPI()
 # 設定 session
 app.add_middleware(
     SessionMiddleware,
-    secret_key=os.getenv("SESSION_SECRET", "week6-secret-key"),
+    secret_key=os.getenv("SESSION_SECRET", "week7-secret-key"),
 )
 
 # 設定靜態檔案
@@ -167,6 +170,18 @@ async def api_delete_message(request: Request, message_id: int):
         return JSONResponse({"error": True})
 
     return {"ok": True}
+
+# 建立 token
+@app.put("/api/token")
+async def api_create_token(request: Request):
+    member_data = get_session_member(request)
+    if not member_data:
+        return JSONResponse({"error": True})
+
+    # SHA256(隨機 bytes) → 不可逆、唯一的 access token
+    token = hashlib.sha256(secrets.token_bytes(32)).hexdigest()
+    update_member_token(member_data["id"], token)
+    return {"ok": True, "token": token}
 
 
 if __name__ == "__main__":

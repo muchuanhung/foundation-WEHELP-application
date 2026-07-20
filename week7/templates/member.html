@@ -18,6 +18,18 @@
           <a class="result-page__link" href="/logout">登出系統</a>
         </section>
 
+        <section class="form-section mcp-section">
+          <h2 class="form-section__title">MCP 伺服器設定</h2>
+          <p class="mcp-section__hint">
+            請使用 http://127.0.0.1:8000/mcp/ 網址<br />
+            點擊產生 Token 取得金鑰
+          </p>
+          <button type="button" id="generate-token" class="form-button">
+            產生 Token
+          </button>
+          <p id="token-display" class="mcp-section__token"></p>
+        </section>
+
         <section class="form-section message-form">
           <h2 class="form-section__title">快來留言吧</h2>
           <form id="message-form">
