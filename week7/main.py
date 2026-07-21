@@ -20,10 +20,12 @@ from db import (
     list_messages,
     update_member_token,
 )
+from mcp_server import mcp_app
 
 load_dotenv()
 
-app = FastAPI()
+# MCP lifespan 必須傳進 FastAPI，否則 session manager 不會啟動
+app = FastAPI(lifespan=mcp_app.lifespan)
 
 # 設定 session
 app.add_middleware(
@@ -33,6 +35,8 @@ app.add_middleware(
 
 # 設定靜態檔案
 app.mount("/static", StaticFiles(directory="static"), name="static")
+# MCP：http://127.0.0.1:8000/mcp/
+app.mount("/mcp", mcp_app)
 # 設定模板
 templates = Jinja2Templates(directory="templates")
 
