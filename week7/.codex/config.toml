@@ -1,0 +1,8 @@
+# Week 7 Task 3 — project-scoped Codex MCP（trusted project 才會讀）
+# 全域設定已寫入 ~/.codex/config.toml；此檔方便作業說明／換機器複製。
+
+[mcp_servers.testing_message_website]
+url = "http://127.0.0.1:8000/mcp/"
+bearer_token_env_var = "WEHELP_MCP_TOKEN"
+startup_timeout_sec = 20
+default_tools_approval_mode = "auto"
